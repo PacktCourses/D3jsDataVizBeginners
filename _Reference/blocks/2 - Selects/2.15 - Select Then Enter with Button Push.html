@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="D3byEX 2.15">
+</head>
+<body>
+    <script src="http://d3js.org/d3.v4.min.js" charset=" utf-8"></script>
+    <button onclick='render([20, 30, 50]);'>Take action!</button>
+<script>
+    render([10, 20, 30]);
+
+    function render(dataToRender) {
+        var selector = d3.select('body')
+            .selectAll('div')
+            .data(dataToRender);
+
+        var entering = selector.enter();
+
+        entering.append('div')
+            .text(function (d) { return d; });
+
+        selector.text(function (d) { return d; });
+    }
+</script>
+</body>
+</html>

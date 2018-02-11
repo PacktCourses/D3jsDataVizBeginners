@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script src="../../lib/d3.js"></script>
+        <script src="../../lib/d3-selection-multi.v1.js"></script>
+        <script type="text/javascript">
+            var width=800, height=100;
+            var svg = d3.select('body')
+                .append('svg')
+                .attrs({ width: width, height: height });
+
+            map = d3.interpolateRainbow;
+            map = d3.interpolateWarm;
+            map = d3.interpolateCool;
+            map = d3.interpolateViridis;
+            map = d3.interpolateMagma;
+            map = d3.interpolateInferno;
+            map = d3.interpolatePlasma;
+            map = d3.interpolateCubehilixDefault;
+
+            for (i=0; i<width; i++){
+                console.log(i);
+                svg.append('rect')
+                    .attrs({
+                        x: i, y: 0,
+                        width: 2, height: height,
+                        fill: map(i / width)
+                    });
+            }
+
+		</script>
+    </body>
+</html>

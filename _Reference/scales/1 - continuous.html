@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <script src="../../lib/d3.js"></script>
+        <script src="../../lib/d3-selection-multi.v1.js"></script>
+        <script src="../../lib/lodash.js"></script>
+        <div id='title'>A</div>
+        <svg id="svg" width="500" height="50" style="background-color: #EEEEEE"></svg>
+        <div id='output'></div>
+        <script type="text/javascript">
+
+            function render(caption, data, domain, range, scale){
+                scale.domain(domain).range(range);
+                d3.select('#title').text(caption);
+                d3.select('#svg').selectAll('circle')
+                  .data(data).enter()
+                  .append('circle')
+                  .attrs({
+                    cx: function(d) { return scale(d) * 500; },
+                    cy: 25,
+                    r: 5,
+                    fill: 'black',
+                  });
+                d3.select('#output').selectAll('div')
+                  .data(data).enter()
+                  .append('div').text(function (d) { return d + " " + scale(d); });
+            };
+
+            function renderBars(caption, scale){
+              var domain = scale.domain();
+              var valueDelta = domain[1] - domain[0] + 1;
+              var svg = d3.select('#svg');
+              var svgWidth = svg.attr('width');
+              var svgHeight = svg.attr('height');
+              var barSpacing = 2;
+              var barWidth = (svgWidth - (valueDelta-1)*barSpacing) / valueDelta;
+              
+              d3.select('#title').text(caption);
+              svg.selectAll('rect')
+                .data(_.range(domain[0], domain[1]+1))
+                .enter()
+                .append('rect')
+                .attrs({
+                  x: function (d, i) { return i*(barWidth+barSpacing); },
+                  y: 0, 
+                  width: barWidth, height: svgHeight,
+                  fill: function (d) { return scale(d); }
+                });
+            };
+
+            var timeDomain = [new Date(2017, 0, 1), new Date(2018, 0, 1)];
+            var timeData = [new Date(2017, 4, 1), new Date(2017, 9, 16)];
+            render('Linear', _.range(0, 101, 10), [0, 100], [0, 1], d3.scaleLinear());
+            //render('Pow', _.range(0, 101, 10), [0, 100], [0, 1], d3.scalePow().exponent(2));
+            //render('Sqrt', _.range(0, 101, 10), [0, 100], [0, 1], d3.scaleSqrt());
+            //render('Log', _.range(1, 102, 10), [1, 100], [0, 1], d3.scaleLog());
+            //render('Time', timeData, timeDomain, [0, 1], d3.scaleTime()); 
+
+            //renderBars("Color Blend", d3.scaleLinear().domain([0, 100]).range(["brown", "steelblue"]));
+		</script>
+    </body>
+</html>
