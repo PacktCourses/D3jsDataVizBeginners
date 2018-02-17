@@ -2,13 +2,9 @@
 <html>
     <head></head>
     <body>
-        Before div (and showing updates)
-        <div id="viz" ></div>
-
-        <script src="../../lib/d3.js"></script>
+        <div id="viz"></div>
+        <script src="..\..\lib\d3.js"></script>
         <script type="text/javascript">
-            console.log("before d3 code");
-
             var svg = d3.select("#viz")
                 .append("svg")
                 .attr("width", 100)
@@ -18,22 +14,6 @@
                 .style("stroke", "black")
                 .style("fill", "red")
                 .attr("r", 40)
-                .attr("cx", 50)
-                .attr("cy", 50);
         </script>
-
-        After div
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
