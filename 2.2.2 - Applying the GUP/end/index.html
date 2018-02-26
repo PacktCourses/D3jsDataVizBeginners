@@ -63,8 +63,9 @@
 
                 renderLegend(allYearsData);
 
+                update(currentYear, nested.get(currentYear));
+
                 var timer = d3.interval(function(elapsed){
-                    console.log(elapsed, currentYear, maxYear);
                     currentYear++;
                     if (currentYear > maxYear)
                     {
@@ -73,8 +74,6 @@
                     } 
                     else update(currentYear, nested.get(currentYear));
                 }, 100);
-
-                update(currentYear, nested.get(currentYear));
             });
                 
             d3.select("button#update").on("click", 
